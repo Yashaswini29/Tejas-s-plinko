@@ -2,7 +2,7 @@ var smoke1 = [];
 var smoke2 = [];
 var smoke3 = [];
 var smoke4 = [];
-var plate = [];
+
 var balls = [];
 var outline1;
 var outline2;
@@ -12,10 +12,11 @@ const Engine = Matter.Engine;
 const World= Matter.World;
 const Bodies = Matter.Bodies;
 const Constraint = Matter.Constraint;
+const Render = Matter.Render;
 
 var engine, world;
 
-
+var plates = [];
 
 function setup(){
     var canvas = createCanvas(600,650);
@@ -34,26 +35,37 @@ function setup(){
     
     
     for (var i = 125; i<=width; i=i+120){
-      plate.push(new Plate(i,490));
+      plates.push(new Plate(i,520,10,250));
     }
 
     for (var i = 20; i<=width; i=i+70){
-      smoke1.push(new Smoke(i,70));
+      smoke1.push(new Smoke(i,70,10,10));
     }
 
     for (var i = 70; i<=width; i=i+80){
-      smoke2.push(new Smoke(i,130));
+      smoke2.push(new Smoke(i,130,10,10));
     }
 
     for (var i = 20; i<=width; i=i+70){
-      smoke3.push(new Smoke(i,190));
+      smoke3.push(new Smoke(i,190,10,10));
     }
 
     for (var i = 70; i<=width; i=i+80){
-      smoke4.push(new Smoke(i,260));
+      smoke4.push(new Smoke(i,260,10,10));
     }
     
 
+    var render = Render.create({
+      element:document.body,
+      engine:engine,
+      options:{
+        width:600,
+        height:650,
+        wireframes:false
+      }
+    })
+    
+    Render.run(render)
   }
 
 function draw(){
@@ -68,8 +80,8 @@ function draw(){
       smoke1[k].display();
     }
 
-    for(var k=0;k<plate.length;k++){
-      plate[k].display();
+    for(var l=0;l<plates.length;l++){
+      plates[l].display();
     }
 
     for(var k=0;k<smoke2.length;k++){
@@ -92,5 +104,4 @@ function draw(){
    for(var k=0;k<balls.length;k++){
     balls[k].display();
   }
-    drawSprite();
 }
